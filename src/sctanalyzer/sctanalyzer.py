@@ -1,14 +1,19 @@
 """
-TODO: Write documentation.
+This module provides a SCTAnalyzer class that implements a tabu search
+heuristic for analyzing general substitution ciphers.
 """
 
 class SCTAnalyzer(object):
     """
-    TODO
+    SCTAnalyzer implements a tabu search heuristic that helps break a general
+    substitution cipher. The procedure uses provided Cipher and LangData
+    implementations that guide the search by providing cipher and language
+    specific information.
     """
     def __init__(self, cipher, langdata):
         """
-        TODO: Write documentation.
+        Create a new SCTAnalyzer object with given Cipher and LangData
+        implementations.
         """
         self._cipher = cipher
         self._ciphertext = None
@@ -35,29 +40,41 @@ class SCTAnalyzer(object):
 
     def initialize(self, ciphertext, tabusize):
         """
-        TODO
+        Initialize tabu search with given ciphertext and tabu list size.
         """
         self._ciphertext = ciphertext
-        self._currkey = self._cipher.initialkey(ciphertext)
+        self._currkey = self._cipher.initialkey(ciphertext, self._langdata)
         self._tabulist = [None] * tabusize
         self._tabulistnext = 0
+        return self.plaintext()
+
 
     def nextiter(self):
         """
-        TODO
+        Advvance to the next iteration of tabu search.
         """
-        if not self._currkey:
+        if self._currkey is None:
             raise RuntimeError("Tabu search not initialized.")
-        self._tabulist[self._tabulistnext] = self._currkey
-        self._tabulistnext = (self._tabulistnext + 1) % len(self._tabulist)
-        self._currqual, self._currkey = min(self._getneighbourhood())
+        if self._tabulist:
+            self._tabulist[self._tabulistnext] = self._currkey
+            self._tabulistnext = (self._tabulistnext + 1) % len(self._tabulist)
+        try:
+            self._currqual, self._currkey = min(self._getneighbourhood())
+        except ValueError:
+            raise StopIteration
+
         return self.plaintext()
 
 
     def _getneighbourhood(self):
+        """
+        Get neighbourhood of current solution provided by the Cipher, with tabu
+        and wrong solutions filtered out and with qualities given by LangData.
+        """
         for key in self._cipher.neighbourhood(
                 self._currkey,
-                self._ciphertext):
+                self._ciphertext,
+                self._langdata):
             if key in self._tabulist or key in self._wrongsols:
                 continue
             quality = self._langdata.quality(

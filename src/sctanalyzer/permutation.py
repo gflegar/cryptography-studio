@@ -44,14 +44,19 @@ class Permutation(object):
         """
         return "Permutation('{}')".format(self._perm)
 
-    def __call__(self, c):
-        """
-        Permute a selected item.
 
-        >>> Permutation('BACDEFGHIJKLMNOPQRSTUVWXYZ')('A')
-        'B'
-        """
+    def _permute(self, c):
         return self._perm[ord(c.upper()) - ord('A')]
+
+
+    def __call__(self, text):
+        """
+        Permute a selected item or range of iterms.
+
+        >>> Permutation('BACDEFGHIJKLMNOPQRSTUVWXYZ')('ABC')
+        'BAC'
+        """
+        return ''.join(map(self._permute, text))
 
     def __matmul__(self, other):
         """
@@ -61,7 +66,7 @@ class Permutation(object):
         >>> p @ p
         Permutation('ABCDEFGHIJKLMNOPQRSTUVWXYZ')
         """
-        return Permutation(''.join(self(other(c)) for c in self._CHARS))
+        return Permutation(self(other(self._CHARS)))
 
     @classmethod
     def inversion(cls, a, b):
@@ -80,6 +85,16 @@ class Permutation(object):
                 return a
             return x
         return Permutation(''.join(map(invert, cls._CHARS)))
+
+    @classmethod
+    def shift(cls, i):
+        """
+        Create a shift _i_ places to the left.
+
+        >>> Permutation.shift(5)
+        Permutation('FGHIJKLMNOPQRSTUVWXYZABCDE')
+        """
+        return Permutation(cls._CHARS[i:] + cls._CHARS[:i])
 
 if __name__ == "__main__":
     import doctest
