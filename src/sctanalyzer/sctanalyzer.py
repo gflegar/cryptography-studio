@@ -31,6 +31,13 @@ class SCTAnalyzer(object):
         return self._currkey
 
 
+    def quality(self):
+        """
+        Get quality of current solution.
+        """
+        return self._langdata.quality(self.plaintext())
+
+
     def plaintext(self):
         """
         Get current plaintext.
