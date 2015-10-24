@@ -1,0 +1,19 @@
+#!/usr/bin/python
+
+
+import gi
+gi.require_version("Gtk", "3.0")
+from gi.repository import Gtk
+
+
+import cstudio
+
+
+def main():
+    app = cstudio.CryptographyStudio()
+    Gtk.main()
+
+
+if __name__ == "__main__":
+    main()
+
