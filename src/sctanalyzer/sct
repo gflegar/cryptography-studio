@@ -1,0 +1,30 @@
+#!/usr/bin/python3
+
+import sys
+
+from substitution_cipher import SubstitutionCipher
+from trigramanalyzer import TrigramAnalyzer
+from sctanalyzer import SCTAnalyzer
+
+if len(sys.argv) != 2:
+    print("Usage: {} cipherfile".format(sys.argv[0]), file=sys.stderr)
+    sys.exit(1)
+
+cf = open(sys.argv[1], 'r')
+ciphertext = ''.join(filter(str.isalpha, cf.read()))
+print(ciphertext)
+cf.close()
+
+analyzer = SCTAnalyzer(SubstitutionCipher(),
+        TrigramAnalyzer('langfiles/hr.json'))
+
+analyzer.initialize(ciphertext, 20)
+
+print(analyzer.plaintext(), analyzer.key(), analyzer.quality())
+
+while input("Is it wrong [Y/n]? ") != 'n':
+    analyzer.setwrong()
+    analyzer.nextiter()
+    print(analyzer.plaintext(), analyzer.key(), analyzer.quality())
+
+

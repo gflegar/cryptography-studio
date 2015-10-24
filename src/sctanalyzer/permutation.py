@@ -8,8 +8,8 @@ class Permutation(object):
     A class representing permutations of letters.
     """
 
-    _CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-    _ASIZE = len(_CHARS)
+    CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    _ASIZE = len(CHARS)
 
     def __init__(self, perm = None):
         """
@@ -21,7 +21,7 @@ class Permutation(object):
         Permutation('ABCDEFGHIJKLMNOPQRSTUVWXYZ')
         """
         if not perm:
-            perm = self._CHARS
+            perm = self.CHARS
         if len(perm) != self._ASIZE:
             raise ValueError('"{}" is too short.'.format(perm))
         self._perm = perm
@@ -36,7 +36,7 @@ class Permutation(object):
         >>> Permutation() == Permutation()
         True
         """
-        return self._perm == other._perm
+        return isinstance(other, self.__class__) and self._perm == other._perm
 
     def __repr__(self):
         """
@@ -66,7 +66,21 @@ class Permutation(object):
         >>> p @ p
         Permutation('ABCDEFGHIJKLMNOPQRSTUVWXYZ')
         """
-        return Permutation(self(other(self._CHARS)))
+        return Permutation(self(other(self.CHARS)))
+
+
+    def __invert__(self):
+        """
+        Get this permutations inverse.
+
+        >>> ~Permutation.shift(5) @ Permutation.shift(5) == Permutation()
+        True
+        """
+        inverse = [None] * self._ASIZE
+        for i, c in enumerate(self._perm):
+            inverse[ord(c) - ord('A')] = chr(ord('A') + i)
+        return Permutation(''.join(inverse))
+
 
     @classmethod
     def inversion(cls, a, b):
@@ -84,7 +98,7 @@ class Permutation(object):
             if x == b:
                 return a
             return x
-        return Permutation(''.join(map(invert, cls._CHARS)))
+        return Permutation(''.join(map(invert, cls.CHARS)))
 
     @classmethod
     def shift(cls, i):
@@ -94,8 +108,9 @@ class Permutation(object):
         >>> Permutation.shift(5)
         Permutation('FGHIJKLMNOPQRSTUVWXYZABCDE')
         """
-        return Permutation(cls._CHARS[i:] + cls._CHARS[:i])
+        return Permutation(cls.CHARS[i:] + cls.CHARS[:i])
 
 if __name__ == "__main__":
     import doctest
     doctest.testmod()
+

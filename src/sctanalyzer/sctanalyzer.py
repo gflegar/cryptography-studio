@@ -45,6 +45,13 @@ class SCTAnalyzer(object):
         return self._cipher.decrypt(self._ciphertext, self._currkey)
 
 
+    def setwrong(self):
+        """
+        Add current solution in wrong solutions.
+        """
+        self._wrongsols.add(self.plaintext())
+
+
     def initialize(self, ciphertext, tabusize):
         """
         Initialize tabu search with given ciphertext and tabu list size.
@@ -63,10 +70,11 @@ class SCTAnalyzer(object):
         if self._currkey is None:
             raise RuntimeError("Tabu search not initialized.")
         if self._tabulist:
-            self._tabulist[self._tabulistnext] = self._currkey
+            self._tabulist[self._tabulistnext] = self.plaintext()
             self._tabulistnext = (self._tabulistnext + 1) % len(self._tabulist)
         try:
-            self._currqual, self._currkey = min(self._getneighbourhood())
+            self._currqual, self._currkey = min(self._getneighbourhood(),
+                    key=lambda x: x[0])
         except ValueError:
             raise StopIteration
 
@@ -82,7 +90,8 @@ class SCTAnalyzer(object):
                 self._currkey,
                 self._ciphertext,
                 self._langdata):
-            if key in self._tabulist or key in self._wrongsols:
+            plaintext = self._cipher.decrypt(self._ciphertext, key)
+            if plaintext in self._tabulist or plaintext in self._wrongsols:
                 continue
             quality = self._langdata.quality(
                         self._cipher.decrypt(self._ciphertext, key))
