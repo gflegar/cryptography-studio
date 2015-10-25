@@ -59,3 +59,6 @@ target/
 # Tags file
 tags
 
+# Glade tmp files
+*.glade~
+
