@@ -1,10 +1,14 @@
 from gi.repository import Gtk
 from os import path
 
-from .ed_widget import EncodeDecodeController
+
+from cstudio.ed_widget import EncodeDecodeController
+from cstudio.plugin_controller import PluginController
+
 
 class CryptographyStudio(object):
     GLADE = "cstudio.glade"
+    PLUGINS_PACKAGE = "plugins"
     NAMES = {
         "window" : "cstudio"
     }
@@ -13,7 +17,9 @@ class CryptographyStudio(object):
         self._build_gui()
         self._load_gui_objects(self._builder)
         self._connect_handlers()
-        self._ed_controller = EncodeDecodeController(self._builder, None)
+        self._plugin_controller = PluginController(self.PLUGINS_PACKAGE)
+        self._ed_controller = EncodeDecodeController(
+                self._builder, self._plugin_controller)
         self._window.show_all()
 
     def _build_gui(self):
@@ -25,6 +31,7 @@ class CryptographyStudio(object):
 
     def _connect_handlers(self):
         self._window.connect("delete-event", Gtk.main_quit)
+
 
 if __name__ == "__main__":
     import doctest

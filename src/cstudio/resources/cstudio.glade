@@ -6,8 +6,6 @@
     <columns>
       <!-- column-name cipher_name -->
       <column type="gchararray"/>
-      <!-- column-name cipher_id -->
-      <column type="gint"/>
     </columns>
   </object>
   <object class="GtkWindow" id="cstudio">
