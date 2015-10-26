@@ -9,28 +9,26 @@ from cstudio.plugin_controller import PluginController
 class CryptographyStudio(object):
     GLADE = "cstudio.glade"
     PLUGINS_PACKAGE = "plugins"
-    NAMES = {
-        "window" : "cstudio"
-    }
+    WIDGET_ID = "cstudio"
 
     def __init__(self):
         self._build_gui()
-        self._load_gui_objects(self._builder)
+        self._load_gui_objects()
         self._connect_handlers()
         self._plugin_controller = PluginController(self.PLUGINS_PACKAGE)
         self._ed_controller = EncodeDecodeController(
                 self._builder, self._plugin_controller)
-        self._window.show_all()
+        self._widget.show_all()
 
     def _build_gui(self):
         glade_path = path.join(path.dirname(__file__), "resources", self.GLADE)
         self._builder = Gtk.Builder.new_from_file(glade_path)
 
-    def _load_gui_objects(self, builder):
-        self._window = builder.get_object(self.NAMES["window"])
+    def _load_gui_objects(self):
+        self._widget = self._builder.get_object(self.WIDGET_ID)
 
     def _connect_handlers(self):
-        self._window.connect("delete-event", Gtk.main_quit)
+        self._widget.connect("delete-event", Gtk.main_quit)
 
 
 if __name__ == "__main__":
