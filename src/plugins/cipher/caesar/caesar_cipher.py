@@ -5,6 +5,9 @@ from plugins.cipher import cipher
 
 
 class CaesarCipher(cipher.Cipher):
+    def __init__(self, parent):
+        self._parent = parent
+
     def encrypt(self, plaintext, key):
         return plaintext
 
