@@ -3,24 +3,19 @@ from os import path
 
 
 import cstudio
+from cstudio.widget_controller import WidgetController
 
-
-class PluginSelector(object):
+class PluginSelector(WidgetController):
     GLADE = "plugin_selector.glade"
     WIDGET_ID = "plugin_frame"
     SELECTOR_ID = "plugin_selector"
 
     def __init__(self, parent, plugin_controller):
-        self._build_gui();
-        self._load_gui_objects()
-        self._connect_handlers()
-        self._parent = parent
+        super().__init__(parent)
         self._plugin = None
         self._plugin_controller = plugin_controller
         self._default_text = self._widget.get_child().get_text()
-
-    def get_widget(self):
-        return self._widget
+        self._widget.show_all()
 
     def populate(self, plugin_type):
         self._plugin_type = plugin_type
@@ -30,16 +25,13 @@ class PluginSelector(object):
         for plugin in plugins:
             self._selection_list.append([plugin])
 
-    def _build_gui(self):
-        glade_path = path.join(path.dirname(__file__), "resources", self.GLADE)
-        self._builder = Gtk.Builder.new_from_file(glade_path)
-
     def _load_gui_objects(self):
-        self._widget = self._builder.get_object(self.WIDGET_ID)
+        super()._load_gui_objects()
         self._selector = self._builder.get_object(self.SELECTOR_ID)
         self._selection_list = self._selector.get_model()
 
     def _connect_handlers(self):
+        super()._connect_handlers()
         self._selector.connect("changed", self._change_plugin)
 
     def _change_plugin(self, widget):
