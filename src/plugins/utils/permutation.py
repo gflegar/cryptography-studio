@@ -3,6 +3,7 @@ This module provides a Permutation class that represents permutations of
 english alphabet.
 """
 
+
 class Permutation(object):
     """
     A class representing permutations of letters.
@@ -44,10 +45,8 @@ class Permutation(object):
         """
         return "Permutation('{}')".format(self._perm)
 
-
     def _permute(self, c):
         return self._perm[ord(c.upper()) - ord('A')]
-
 
     def __call__(self, text):
         """
@@ -68,7 +67,6 @@ class Permutation(object):
         """
         return Permutation(self(other(self.CHARS)))
 
-
     def __invert__(self):
         """
         Get this permutations inverse.
@@ -80,7 +78,6 @@ class Permutation(object):
         for i, c in enumerate(self._perm):
             inverse[ord(c) - ord('A')] = chr(ord('A') + i)
         return Permutation(''.join(inverse))
-
 
     @classmethod
     def inversion(cls, a, b):
@@ -109,6 +106,7 @@ class Permutation(object):
         Permutation('FGHIJKLMNOPQRSTUVWXYZABCDE')
         """
         return Permutation(cls.CHARS[i:] + cls.CHARS[:i])
+
 
 if __name__ == "__main__":
     import doctest

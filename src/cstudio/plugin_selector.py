@@ -49,5 +49,6 @@ class PluginSelector(WidgetController):
                 self._plugin_type, plugin_name))
         self._widget.get_child().destroy()
         self._widget.add(plugin_widget)
-        plugin_widget.show()
+        plugin_widget.show_all()
+        self._widget.queue_resize()
 

@@ -1,20 +1,20 @@
-"""
-This module provides Cipher definition for the general substitution cipher.
-"""
+from plugins.cipher_analyzer.cipher_analyzer import CipherAnalyzer
+from plugins.utils.permutation import Permutation
 
-from permutation import Permutation
-from cipher import Cipher
 
-class SubstitutionCipher(Cipher):
+def SubstitutionCipherAnalyzer(CipherAnalyzer):
     """
-    This is a Cipher implementation for the general substitution cipher.
+    This is a Cipher Analyzer implementation for the general substitution
+    cipher.
 
     It uses two-element inversions for neighbourhood definition and letter
     frequency for starting state definition.
     """
-    def decrypt(self, ciphertext, key):
-        return (~key)(ciphertext)
+    def __init__(self, parent):
+        self._parent = parent
 
+    def get_widget(self):
+        return self
 
     def _freq2perm(self, freq):
         """

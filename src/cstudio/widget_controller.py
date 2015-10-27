@@ -5,7 +5,7 @@ from os import path
 class WidgetController(object):
     GLADE = "widget.glade"
     WIDGET_ID = "widget"
-    GLADE_LOCATION = path.join(path.dirname(__file__))
+    GLADE_LOCATION = path.dirname(__file__)
 
     def __init__(self, parent = None):
         self._parent = parent
