@@ -1,12 +1,8 @@
-from gi.repository import Gtk
-from os import path
-
-
 from cstudio.widget_controller import WidgetController
 from cstudio.plugin_selector import PluginSelector
 
 
-class EncodeDecodeController(WidgetController):
+class EncryptDecryptController(WidgetController):
     GLADE = "encode_decode.glade"
     WIDGET_ID = "encode_decode_note"
     LABEL_ID = "encode_decode_note_label"
@@ -39,12 +35,4 @@ class EncodeDecodeController(WidgetController):
         text_view = self._builder.get_object(self.TEXT_VIEW_ID)
         self._text_buffer = text_view.get_buffer()
         self._cipher_window = self._builder.get_object(self.CIPHER_WINDOW_ID)
-
-    def _connect_handlers(self):
-        super()._connect_handlers()
-        self._text_buffer.connect("changed", self._on_text_change)
-
-    def _on_text_change(self, widget):
-        #TODO: Change when event system is implemented
-        print(self.get_text())
 

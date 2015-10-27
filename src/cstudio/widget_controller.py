@@ -5,6 +5,7 @@ from os import path
 class WidgetController(object):
     GLADE = "widget.glade"
     WIDGET_ID = "widget"
+    GLADE_LOCATION = path.join(path.dirname(__file__))
 
     def __init__(self, parent = None):
         self._parent = parent
@@ -16,7 +17,7 @@ class WidgetController(object):
         return self._widget
 
     def _build_gui(self):
-        glade_path = path.join(path.dirname(__file__), "resources", self.GLADE)
+        glade_path = path.join(self.GLADE_LOCATION, "resources", self.GLADE)
         self._builder = Gtk.Builder.new_from_file(glade_path)
 
     def _load_gui_objects(self):

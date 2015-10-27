@@ -5,6 +5,7 @@ from os import path
 import cstudio
 from cstudio.widget_controller import WidgetController
 
+
 class PluginSelector(WidgetController):
     GLADE = "plugin_selector.glade"
     WIDGET_ID = "plugin_frame"
@@ -20,7 +21,9 @@ class PluginSelector(WidgetController):
     def populate(self, plugin_type):
         self._plugin_type = plugin_type
         self._widget.get_child().destroy()
-        self._widget.add(Gtk.Label(self._default_text.format(plugin_type)))
+        self._widget.add(Gtk.Label(
+            self._default_text.format(plugin_type),
+            wrap = True))
         plugins = self._plugin_controller.get_plugins(plugin_type)
         for plugin in plugins:
             self._selection_list.append([plugin])
@@ -40,7 +43,6 @@ class PluginSelector(WidgetController):
         try:
             self._plugin = self._plugin_controller.get_plugin(
                     self._plugin_type, plugin_name)(self._parent)
-            print("plugin changed to {}".format(plugin_name))
             plugin_widget = self._plugin.get_widget()
         except cstudio.Error:
             plugin_widget = Gtk.Label("Unable to load {} plugin: {}".format(
