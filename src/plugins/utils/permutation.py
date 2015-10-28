@@ -23,9 +23,9 @@ class Permutation(object):
         """
         if not perm:
             perm = self.CHARS
-        if len(perm) != self._ASIZE:
-            raise ValueError('"{}" is too short.'.format(perm))
-        self._perm = perm
+        self._perm = ''.join(perm)
+        if len(self._perm) != self._ASIZE:
+            raise ValueError('"{}" is of wrong length.'.format(self._perm))
 
     def __hash__(self):
         return hash(self._perm)
@@ -45,8 +45,14 @@ class Permutation(object):
         """
         return "Permutation('{}')".format(self._perm)
 
+    def __str__(self):
+        return self._perm
+
     def _permute(self, c):
-        return self._perm[ord(c.upper()) - ord('A')]
+        if c.upper() in self.CHARS:
+            return self._perm[ord(c.upper()) - ord('A')]
+        else:
+            return c
 
     def __call__(self, text):
         """
@@ -77,7 +83,7 @@ class Permutation(object):
         inverse = [None] * self._ASIZE
         for i, c in enumerate(self._perm):
             inverse[ord(c) - ord('A')] = chr(ord('A') + i)
-        return Permutation(''.join(inverse))
+        return Permutation(inverse)
 
     @classmethod
     def inversion(cls, a, b):
@@ -95,7 +101,7 @@ class Permutation(object):
             if x == b:
                 return a
             return x
-        return Permutation(''.join(map(invert, cls.CHARS)))
+        return Permutation(map(invert, cls.CHARS))
 
     @classmethod
     def shift(cls, i):
