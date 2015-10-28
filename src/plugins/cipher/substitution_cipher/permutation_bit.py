@@ -5,7 +5,6 @@ class PermutationBit(Gtk.Box):
     def __init__(self, bit_position, *args, **kwargs):
         super().__init__(
                 orientation = Gtk.Orientation.VERTICAL,
-                expand = False,
                 *args,
                 **kwargs)
         self.add(Gtk.ToggleButton(bit_position,

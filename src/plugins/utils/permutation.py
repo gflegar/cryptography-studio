@@ -113,6 +113,18 @@ class Permutation(object):
         """
         return Permutation(cls.CHARS[i:] + cls.CHARS[:i])
 
+    @classmethod
+    def from_key(cls, key):
+        permdata = []
+        for c in key.upper() + cls.CHARS:
+            if c in cls.CHARS and c not in permdata:
+                permdata.append(c)
+        return Permutation(permdata)
+
+    @classmethod
+    def affine(cls, mult, add):
+        return Permutation(cls.CHARS[(mult*i + add) % len(cls.CHARS)]
+            for i in range(0, len(cls.CHARS)))
 
 if __name__ == "__main__":
     import doctest
