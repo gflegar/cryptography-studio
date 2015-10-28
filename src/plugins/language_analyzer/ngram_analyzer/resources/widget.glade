@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.19.0 -->
+<interface>
+  <requires lib="gtk+" version="3.16"/>
+  <object class="GtkAdjustment" id="ngram_adjustment">
+    <property name="lower">1</property>
+    <property name="upper">10</property>
+    <property name="step_increment">1</property>
+    <property name="page_increment">10</property>
+  </object>
+  <object class="GtkListStore" id="ngram_store">
+    <columns>
+      <!-- column-name ngram -->
+      <column type="gchararray"/>
+      <!-- column-name plaintext_frequency -->
+      <column type="gdouble"/>
+      <!-- column-name language_frequency -->
+      <column type="gdouble"/>
+    </columns>
+  </object>
+  <object class="GtkBox" id="widget">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="orientation">vertical</property>
+    <child>
+      <object class="GtkBox" id="button_box">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="spacing">2</property>
+        <child>
+          <object class="GtkLabel" id="ngram_label">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label" translatable="yes">ngram:</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkSpinButton" id="ngram_selector">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="text" translatable="yes">1</property>
+            <property name="input_purpose">digits</property>
+            <property name="adjustment">ngram_adjustment</property>
+            <property name="climb_rate">1</property>
+            <property name="numeric">True</property>
+            <property name="wrap">True</property>
+            <property name="value">1</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="refresh_button">
+            <property name="label" translatable="yes">Refresh</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="pack_type">end</property>
+            <property name="position">2</property>
+          </packing>
+        </child>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="fill">True</property>
+        <property name="position">0</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkScrolledWindow" id="ngram_scroller">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="shadow_type">in</property>
+        <child>
+          <object class="GtkTreeView" id="ngram_view">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="model">ngram_store</property>
+            <child internal-child="selection">
+              <object class="GtkTreeSelection" id="treeview-selection1"/>
+            </child>
+            <child>
+              <object class="GtkTreeViewColumn" id="ngram_column">
+                <property name="title" translatable="yes">Ngram</property>
+                <child>
+                  <object class="GtkCellRendererText" id="ngram_renderer"/>
+                  <attributes>
+                    <attribute name="text">0</attribute>
+                  </attributes>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="GtkTreeViewColumn" id="plaintext_frequency">
+                <property name="title" translatable="yes">PT Freq</property>
+                <child>
+                  <object class="GtkCellRendererProgress" id="plaintext_frequnecy_renderer">
+                    <property name="inverted">True</property>
+                  </object>
+                  <attributes>
+                    <attribute name="text">1</attribute>
+                    <attribute name="value">1</attribute>
+                  </attributes>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="GtkTreeViewColumn" id="language_frequency">
+                <property name="title" translatable="yes">Lang Freq</property>
+                <child>
+                  <object class="GtkCellRendererProgress" id="language_frequency_renderer"/>
+                  <attributes>
+                    <attribute name="text">2</attribute>
+                    <attribute name="value">2</attribute>
+                  </attributes>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+      <packing>
+        <property name="expand">True</property>
+        <property name="fill">True</property>
+        <property name="position">1</property>
+      </packing>
+    </child>
+  </object>
+</interface>

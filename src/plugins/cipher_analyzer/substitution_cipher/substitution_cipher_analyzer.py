@@ -4,10 +4,10 @@ from os import path
 from cstudio.widget_controller import WidgetController
 from plugins.cipher_analyzer.cipher_analyzer import CipherAnalyzer
 from plugins.cipher.substitution_cipher.substitution_cipher\
-        import SubstitutionCipher
+    import SubstitutionCipher
 from plugins.cipher.substitution_cipher.permutation_selector\
     import PermutationSelector
-from plugins.utils.permutation import Permutation
+#from plugins.utils.permutation import Permutation
 
 
 class SubstitutionCipherAnalyzer(WidgetController, CipherAnalyzer):
@@ -41,7 +41,6 @@ class SubstitutionCipherAnalyzer(WidgetController, CipherAnalyzer):
     def _try_key(self, *args):
         key = self._permutation_selector.get_permutation()
         ciphertext = self._parent.get_ciphertext()
-        print(ciphertext)
         self._parent.set_plaintext(self._cipher.decrypt(ciphertext, key))
 
 #    def _freq2perm(self, freq):
