@@ -14,8 +14,12 @@
       <column type="gchararray"/>
       <!-- column-name plaintext_frequency -->
       <column type="gdouble"/>
+      <!-- column-name plaintext_label -->
+      <column type="gchararray"/>
       <!-- column-name language_frequency -->
       <column type="gdouble"/>
+      <!-- column-name language_label -->
+      <column type="gchararray"/>
     </columns>
   </object>
   <object class="GtkBox" id="widget">
@@ -93,7 +97,11 @@
             </child>
             <child>
               <object class="GtkTreeViewColumn" id="ngram_column">
+                <property name="resizable">True</property>
+                <property name="sizing">fixed</property>
                 <property name="title" translatable="yes">Ngram</property>
+                <property name="sort_indicator">True</property>
+                <property name="sort_column_id">0</property>
                 <child>
                   <object class="GtkCellRendererText" id="ngram_renderer"/>
                   <attributes>
@@ -104,13 +112,18 @@
             </child>
             <child>
               <object class="GtkTreeViewColumn" id="plaintext_frequency">
+                <property name="resizable">True</property>
+                <property name="sizing">fixed</property>
                 <property name="title" translatable="yes">PT Freq</property>
+                <property name="sort_indicator">True</property>
+                <property name="sort_order">descending</property>
+                <property name="sort_column_id">1</property>
                 <child>
                   <object class="GtkCellRendererProgress" id="plaintext_frequnecy_renderer">
                     <property name="inverted">True</property>
                   </object>
                   <attributes>
-                    <attribute name="text">1</attribute>
+                    <attribute name="text">2</attribute>
                     <attribute name="value">1</attribute>
                   </attributes>
                 </child>
@@ -118,12 +131,17 @@
             </child>
             <child>
               <object class="GtkTreeViewColumn" id="language_frequency">
+                <property name="resizable">True</property>
+                <property name="sizing">fixed</property>
                 <property name="title" translatable="yes">Lang Freq</property>
+                <property name="sort_indicator">True</property>
+                <property name="sort_order">descending</property>
+                <property name="sort_column_id">3</property>
                 <child>
                   <object class="GtkCellRendererProgress" id="language_frequency_renderer"/>
                   <attributes>
-                    <attribute name="text">2</attribute>
-                    <attribute name="value">2</attribute>
+                    <attribute name="text">4</attribute>
+                    <attribute name="value">3</attribute>
                   </attributes>
                 </child>
               </object>
