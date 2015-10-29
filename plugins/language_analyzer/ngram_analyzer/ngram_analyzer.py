@@ -56,7 +56,7 @@ class NGramAnalyzer(WidgetController, LanguageAnalyzer):
                 for char in self._parent.get_plaintext().upper()
                 if char in Permutation.CHARS)
         text_ngrams = {key : 0 for key in ngrams}
-        count = len(plaintext) - n + 1
+        count = (len(plaintext) - n + 1) or 1
         for i in range(0, count):
             substr = plaintext[i:i+n]
             if substr in text_ngrams:
