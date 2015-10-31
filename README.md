@@ -40,7 +40,7 @@ List of plugins
 Instalation
 -----------
 
-### Dependencies:
+### Dependencies
 
 * _Python 3.5_
 * _GTK+ 3.16_
@@ -49,13 +49,23 @@ Instalation
 On _ArchLinux_ dependencies can be installed by runing:
 `pacman -S gtk3 pygobject`
 
-On _Ubuntu_ the following should work (_not tested_):
+On _Ubuntu_ the following should work (_not tested_, but it doesn't work on
+15.04 because the GTK+ version in official repositories is 3.14):
 `apt-get install python3 python3-gi gtk+3.0`
 
 On _Windows_ download and install (_also not tested_):
 
 * [python 3.5](https://www.python.org/downloads/)
 * [PyGObject with GTK+](http://sourceforge.net/projects/pygobjectwin32/)
+
+### Cryptography Studio installation
+
+Clone the repository or download and unpack the .zip file.
+
+### Run the program
+
+Run `cryptography-studio` located at package's root directory (try running it
+with `python3` if that doesn't work).
 
 Screenshots
 -----------
