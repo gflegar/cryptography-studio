@@ -5,6 +5,7 @@
   <object class="GtkWindow" id="cstudio">
     <property name="can_focus">False</property>
     <property name="border_width">4</property>
+    <property name="title" translatable="yes">Cryptography Studio</property>
     <property name="default_width">600</property>
     <property name="default_height">400</property>
     <signal name="destroy" handler="on_cstudio_destroy" swapped="no"/>
