@@ -1,6 +1,8 @@
 Cryptography Studio
 ===================
 
+__NOTE: This repository is no longer maintained!__
+
 What is it?
 -----------
 
